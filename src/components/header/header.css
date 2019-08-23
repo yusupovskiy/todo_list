@@ -1,0 +1,6 @@
+.header > a {
+	color: gray;
+}
+.header > a.active {
+	color: black;
+}
