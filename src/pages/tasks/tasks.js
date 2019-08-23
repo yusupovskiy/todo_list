@@ -3,7 +3,7 @@ import { DI } from '../../store';
 
 import ToDoInput from './input';
 import ToDoList from './list';
-// import Footer from '../../components/footer/footer';
+import Filter from './filter';
 
 class Tasks extends Component {
   state = {
@@ -43,17 +43,17 @@ class Tasks extends Component {
 
   render() {
     const { taskText } = this.state;
-    const { tasks: { list } } = this.props;
-    const { removeTask, completeTask, filters, changeFilter } = this.props.actions.tasks;
+    const { tasks: { list, filter } } = this.props;
+    const { removeTask, completeTask, changeFilter } = this.props.actions.tasks;
     const isTasksExist = list && list.length > 0;
-    const filteredTasks = this.filterTasks(list, filters);
-    // const taskCounter = this.getActiveTasksCounter(tasks);
+    const filteredTasks = this.filterTasks(list, filter);
+    const taskCounter = this.getActiveTasksCounter(list);
 
     return (
       <div className="todo-wrapper">
         <ToDoInput onKeyPress={this.addTast} onChange={this.handleInputChange} value={taskText} />
         {isTasksExist && <ToDoList completeTask={completeTask} tasksList={filteredTasks} removeTask={removeTask} />}
-        {/* {isTasksExist && <Footer changeFilter={changeFilter} amount={taskCounter} activeFilter={filters} />} */}
+        {isTasksExist && <Filter changeFilter={changeFilter} amount={taskCounter} activeFilter={filter} />}
       </div>
     );
   }
