@@ -20,4 +20,12 @@ export const completeTask = id => ({
 export const changeFilter = activeFilter => ({
   type: C.CHANGE_FILTER,
   activeFilter,
-})
+});
+
+export const changeUserTask = (taskID, userID) => ({
+  type: C.CHANGE_USER_TASK,
+  payload: {
+    taskID, 
+    userID
+  },
+});

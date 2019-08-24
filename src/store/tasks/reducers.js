@@ -9,7 +9,7 @@ if (!TASKS || !TASKS.list || !TASKS.list.length) {
   }
 }
 
-export const list = (state = TASKS.list, { id, text, isCompleted, type }) => {
+export const list = (state = TASKS.list, { id, text, isCompleted, type, payload }) => {
   switch (type) {
     case C.ADD_TASK:
       return [
@@ -17,6 +17,7 @@ export const list = (state = TASKS.list, { id, text, isCompleted, type }) => {
           id,
           text,
           isCompleted,
+          userID: 1566572388227
         }
 			];
 			
@@ -31,10 +32,18 @@ export const list = (state = TASKS.list, { id, text, isCompleted, type }) => {
 				return task;
 			});
 
+    case C.CHANGE_USER_TASK:
+      return [...state].map(task => {
+        if(task.id === payload.taskID) {
+          task.userID = payload.userID;
+        }
+        return task;
+      });
+
     default:
       return state;
   }
-}
+};
 
 const BASE_FILTER = 'all';
 
@@ -45,4 +54,4 @@ export const filter = (state = BASE_FILTER, { type, activeFilter }) => {
     default:
       return state;
   }
-}
+};

@@ -4,8 +4,8 @@ import ToDoItem from './item/';
 
 const ToDoList = ({ tasksList, removeTask, completeTask }) => (
   <ul className="todo-list">
-    {tasksList.map(({ id, text, isCompleted }) => (
-      <ToDoItem completeTask={completeTask} removeTask={removeTask} id={id} key={id} text={text} isCompleted={isCompleted} />
+    {tasksList.map(({ id, text, isCompleted, userID }) => (
+      <ToDoItem key={id} completeTask={completeTask} removeTask={removeTask} id={id} userID={userID} text={text} isCompleted={isCompleted} />
     ))}
   </ul>
 );

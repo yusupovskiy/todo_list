@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DI } from '../../store';
 
-import ToDoInput from './input';
+import ToDoInput from '../../components/input';
 import ToDoList from './list';
 import Filter from './filter';
 
