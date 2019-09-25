@@ -20,7 +20,7 @@ export const list = (state = TASKS.list, { id, text, isCompleted, type, payload 
           userID: 1566572388227
         }
 			];
-			
+
     case C.REMOVE_TASK:
 			return [...state].filter(task => task.id !== id);
 
@@ -45,7 +45,7 @@ export const list = (state = TASKS.list, { id, text, isCompleted, type, payload 
   }
 };
 
-const BASE_FILTER = 'all';
+const BASE_FILTER = 'SHOW_ALL';
 
 export const filter = (state = BASE_FILTER, { type, activeFilter }) => {
   switch (type) {

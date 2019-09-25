@@ -25,7 +25,7 @@ export const changeFilter = activeFilter => ({
 export const changeUserTask = (taskID, userID) => ({
   type: C.CHANGE_USER_TASK,
   payload: {
-    taskID, 
+    taskID,
     userID
   },
 });

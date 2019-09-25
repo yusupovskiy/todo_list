@@ -3,33 +3,31 @@ import PropTypes from 'prop-types';
 
 const FILTERS_BTN = [{
     text: 'All',
-    id: 'all',
+    id: 'SHOW_ALL',
   }, {
     text: 'Active',
-    id: 'active',
+    id: 'SHOW_COMPLETED',
   }, {
     text: 'Completed',
-    id: 'completed'
+    id: 'SHOW_ACTIVE'
 }];
 
 const Filter = ({ amount, activeFilter, changeFilter }) => {
-	console.log(activeFilter);
 	return (
-  <div className="filter">
-    <span className="amount">{`${amount} Tasks left`}</span>
-    <div className="btn-group">
-      {FILTERS_BTN.map(({ text, id }) => (
-        <button
-          onClick={() => {
-						console.log(2)
-						changeFilter(id)}}
-          key={id}
-          className={id === activeFilter ? "filter-btn active" : 'filter-btn'}
-        >{text}</button>
-      ))}
+    <div className="filter">
+      <span className="amount">{`${amount} Tasks left`}</span>
+      <div className="btn-group">
+        {FILTERS_BTN.map(({ text, id }) => (
+          <button
+            onClick={() => changeFilter(id)}
+            key={id}
+            className={id === activeFilter ? "filter-btn active" : 'filter-btn'}
+          >{text}</button>
+        ))}
+      </div>
     </div>
-  </div>
-);}
+  );
+}
 
 Filter.propTypes = {
   amount: PropTypes.number,

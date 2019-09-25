@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { DI } from '../../store';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from '../../store/tasks/actions';
+import { getVisibleTodos } from '../../selectors'
 
 import ToDoInput from '../../components/input';
 import ToDoList from './list';
@@ -29,13 +33,14 @@ class Tasks extends Component {
   }
 
   filterTasks = (tasks, activeFilter) => {
+    console.log('Пересобираем 1')
     switch (activeFilter) {
-      case 'completed':
-        return tasks.filter(task => task.isCompleted);
-      case 'active':
-        return tasks.filter(task => !task.isCompleted);
-      default:
+      case 'SHOW_ALL':
         return tasks;
+      case 'SHOW_COMPLETED':
+        return tasks.filter(task => task.isCompleted);
+      case 'SHOW_ACTIVE':
+        return tasks.filter(task => !task.isCompleted);
     }
   }
 
@@ -46,8 +51,10 @@ class Tasks extends Component {
     const { tasks: { list, filter } } = this.props;
     const { removeTask, completeTask, changeFilter } = this.props.actions.tasks;
     const isTasksExist = list && list.length > 0;
-    const filteredTasks = this.filterTasks(list, filter);
+    const filteredTasks = this.props.todos;
     const taskCounter = this.getActiveTasksCounter(list);
+
+    console.log(this.props)
 
     return (
       <div className="todo-wrapper">
@@ -59,4 +66,28 @@ class Tasks extends Component {
   }
 }
 
-export default DI(['tasks'])(Tasks);
+
+
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks,
+    todos: getVisibleTodos(state)
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: {
+      tasks: bindActionCreators(actions, dispatch)
+    }
+  }
+}
+
+const VisibleTodoList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Tasks)
+
+export default VisibleTodoList
+
+// export default DI(['tasks'])(VisibleTodoList);
